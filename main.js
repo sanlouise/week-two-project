@@ -3,16 +3,14 @@
 // Open your `index.html` page in your browser and you can verify that the following
 // is properly working. The `data` variable is an array with 25 items in it
 
-
 // 1: Show me how to calculate the average price of all items.
 function question1() {
   let sum = 0;
   for (let i = 0; i < data.length; i++) {
     sum += data[i].price;
   }
-  console.log((sum/data.length).toFixed(2));
+  console.log("The average price is " + (sum/data.length).toFixed(2));
 };
-
 
 // 2: Show me how to get an array of items that cost between $14.00 and $18.00 USD
 function question2 () {
@@ -34,22 +32,38 @@ function question3 () {
   }
 }
 
-
 // 4: Display a list of all items who are made of wood.
+// function question4 () {
 function question4 () {
-
+  let woodenItems = [];
+  for (let i = 0; i < data.length; i++) {
+    if (data[i].materials.indexOf('wood') > -1) {
+      woodenItems.push(data[i].title + " is made of wood.");
+    }
+  } console.log(woodenItems);
 }
-
 
 // 5: Which items are made of eight or more materials?
 //    Display the name, number of items and the items it is made of.
 function question5 () {
-  // Answer:
+  let materialCount = [];
+  let materialsArray = [];
+  for (let i = 0; i < data.length; i++) {
+    if (data[i].materials.length > 7) {
+      materialCount.push(data[i].title + " has " + data[i].materials.length + " materials:");
+      materialsArray.push("-" + data[i].materials);
+    }
+  } console.log(materialCount.concat(materialsArray));
 }
-
 
 // 6: How many items were made by their sellers?
 // Answer:
 function question6 () {
-  // Answer:
+  let count = 0;
+  for (let i = 0; i < data.length; i++) {
+    if (data[i].who_made === "i_did") {
+      count += 1
+    }
+  }
+  console.log(count + " items were made by their sellers.")
 }
