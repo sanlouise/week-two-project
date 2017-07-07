@@ -16,8 +16,9 @@ function question1() {
 function question2 () {
   let newArr = [];
   for (let i = 0; i < data.length; i++) {
-    if (data[i].price >= 14 && data[i].price <= 18) {
-      newArr.push(data[i].title);
+    const { price, title } = data[i];
+    if (price >= 14 && price <= 18) {
+      newArr.push(title);
     }
   }
   console.log(newArr);
@@ -26,8 +27,9 @@ function question2 () {
 // 3: Which item has a "GBP" currency code? Display its name and price.
 function question3 () {
   for (let i = 0; i < data.length; i++) {
-    if (data[i].currency_code === "GBP") {
-      console.log(data[i].title + " costs " + data[i].price + " pounds.");
+    const { currency_code, title, price} = data[i];
+    if (currency_code === "GBP") {
+      console.log(`${title} costs ${price} pounds.`);
     }
   }
 }
@@ -35,25 +37,36 @@ function question3 () {
 // 4: Display a list of all items who are made of wood.
 // function question4 () {
 function question4 () {
-  let woodenItems = [];
   for (let i = 0; i < data.length; i++) {
-    if (data[i].materials.indexOf('wood') > -1) {
-      woodenItems.push(data[i].title + " is made of wood.");
+    const { materials, title } = data[i];
+    if (materials.indexOf('wood') > -1) {
+      console.log(`${title} is made of wood.`);
     }
-  } console.log(woodenItems);
+  }
 }
 
 // 5: Which items are made of eight or more materials?
 //    Display the name, number of items and the items it is made of.
 function question5 () {
-  let materialCount = [];
-  let materialsArray = [];
   for (let i = 0; i < data.length; i++) {
-    if (data[i].materials.length > 7) {
-      materialCount.push(data[i].title + " has " + data[i].materials.length + " materials:");
-      materialsArray.push("-" + data[i].materials);
+    const materials = data[i].materials;
+    const title = data[i].title;
+
+    let formattedMaterials = [];
+    if (materials.length >= 8) {
+      const formattedTitle = `${title} has ${materials.length} materials:`;
+      formattedMaterials.push(formattedTitle);
+      for (let v = 0; v < materials.length; v++) {
+        const material = materials[v];
+        formattedMaterials.push(`-${material}`);
+      }
     }
-  } console.log(materialCount.concat(materialsArray));
+    if (formattedMaterials.length > 0) {
+      for (let x = 0; x < formattedMaterials.length; x++) {
+        console.log(formattedMaterials[x]);
+      }
+    }
+  }
 }
 
 // 6: How many items were made by their sellers?
@@ -65,5 +78,5 @@ function question6 () {
       count += 1
     }
   }
-  console.log(count + " items were made by their sellers.")
+  console.log(`${count} items were made by their sellers.`)
 }
