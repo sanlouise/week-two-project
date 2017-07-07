@@ -58,12 +58,12 @@ function question5 () {
       formattedMaterials.push(formattedTitle);
       for (let v = 0; v < materials.length; v++) {
         const material = materials[v];
-        formattedMaterials.push(`-${material}`);
+        formattedMaterials.push(material);
       }
     }
     if (formattedMaterials.length > 0) {
       for (let x = 0; x < formattedMaterials.length; x++) {
-        console.log(formattedMaterials[x]);
+        console.log(`-${formattedMaterials[x]}`);
       }
     }
   }
