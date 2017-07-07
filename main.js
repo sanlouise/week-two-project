@@ -4,7 +4,7 @@
 // is properly working. The `data` variable is an array with 25 items in it
 
 // 1: Show me how to calculate the average price of all items.
-function question1() {
+question1 = () => {
   let sum = 0;
   for (let i = 0; i < data.length; i++) {
     sum += data[i].price;
@@ -13,7 +13,7 @@ function question1() {
 };
 
 // 2: Show me how to get an array of items that cost between $14.00 and $18.00 USD
-function question2 () {
+question2 = () => {
   let newArr = [];
   for (let i = 0; i < data.length; i++) {
     const { price, title } = data[i];
@@ -25,7 +25,7 @@ function question2 () {
 }
 
 // 3: Which item has a "GBP" currency code? Display its name and price.
-function question3 () {
+question3 = () => {
   for (let i = 0; i < data.length; i++) {
     const { currency_code, title, price} = data[i];
     if (currency_code === "GBP") {
@@ -36,7 +36,7 @@ function question3 () {
 
 // 4: Display a list of all items who are made of wood.
 // function question4 () {
-function question4 () {
+question4 = () => {
   for (let i = 0; i < data.length; i++) {
     const { materials, title } = data[i];
     if (materials.indexOf('wood') > -1) {
@@ -47,7 +47,7 @@ function question4 () {
 
 // 5: Which items are made of eight or more materials?
 //    Display the name, number of items and the items it is made of.
-function question5 () {
+question5 = () => {
   for (let i = 0; i < data.length; i++) {
     const materials = data[i].materials;
     const title = data[i].title;
@@ -71,7 +71,7 @@ function question5 () {
 
 // 6: How many items were made by their sellers?
 // Answer:
-function question6 () {
+question6 = () => {
   let count = 0;
   for (let i = 0; i < data.length; i++) {
     if (data[i].who_made === "i_did") {
