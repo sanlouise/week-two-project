@@ -4,79 +4,64 @@
 // is properly working. The `data` variable is an array with 25 items in it
 
 // 1: Show me how to calculate the average price of all items.
+
 question1 = () => {
-  let sum = 0;
-  for (let i = 0; i < data.length; i++) {
-    sum += data[i].price;
-  }
-  console.log("The average price is " + (sum/data.length).toFixed(2));
+  const ans = data.reduce(function(result, elem) {
+    result += elem.price
+    return result;
+  }, 0)
+  console.log("The average price is " + (ans/data.length).toFixed(2));
 };
 
 // 2: Show me how to get an array of items that cost between $14.00 and $18.00 USD
 question2 = () => {
-  let newArr = [];
-  for (let i = 0; i < data.length; i++) {
-    const { price, title } = data[i];
-    if (price >= 14 && price <= 18) {
-      newArr.push(title);
+  return data.filter((item) => {
+    if (item["price"] >= 14 && item["price"] <= 18) {
+      console.log(item.title)
     }
-  }
-  console.log(newArr);
+  });
 }
 
 // 3: Which item has a "GBP" currency code? Display its name and price.
 question3 = () => {
-  for (let i = 0; i < data.length; i++) {
-    const { currency_code, title, price} = data[i];
-    if (currency_code === "GBP") {
-      console.log(`${title} costs ${price} pounds.`);
+  return data.find((item) => {
+    if (item.currency_code === "GBP") {
+      console.log(`${item.title} costs ${item.price} pounds.`)
     }
-  }
+  })
 }
 
 // 4: Display a list of all items who are made of wood.
-// function question4 () {
 question4 = () => {
-  for (let i = 0; i < data.length; i++) {
-    const { materials, title } = data[i];
-    if (materials.indexOf('wood') > -1) {
-      console.log(`${title} is made of wood.`);
+  return data.filter((item) => {
+    if (item.materials.indexOf('wood') > -1) {
+      console.log(`${item.title} is made of wood.`);
     }
-  }
+  })
 }
 
 // 5: Which items are made of eight or more materials?
 //    Display the name, number of items and the items it is made of.
-question5 = () => {
-  for (let i = 0; i < data.length; i++) {
-    const materials = data[i].materials;
-    const title = data[i].title;
 
-    let formattedMaterials = [];
+question5 = () => {
+  return data.filter((item) => {
+    const { materials, title } = item;
     if (materials.length >= 8) {
-      const formattedTitle = `${title} has ${materials.length} materials:`;
-      formattedMaterials.push(formattedTitle);
-      for (let v = 0; v < materials.length; v++) {
-        const material = materials[v];
-        formattedMaterials.push(material);
-      }
+      console.log(`${title} has ${materials.length} materials:`);
+      materials.map((material) => {
+        console.log(`-${material}`);
+      })
     }
-    if (formattedMaterials.length > 0) {
-      for (let x = 0; x < formattedMaterials.length; x++) {
-        console.log(`-${formattedMaterials[x]}`);
-      }
-    }
-  }
+  })
 }
 
 // 6: How many items were made by their sellers?
 // Answer:
 question6 = () => {
-  let count = 0;
-  for (let i = 0; i < data.length; i++) {
-    if (data[i].who_made === "i_did") {
-      count += 1
+  const count = data.filter((item) => {
+    if (item.who_made === "i_did") {
+      return item;
     }
-  }
-  console.log(`${count} items were made by their sellers.`)
+  })
+  console.log(`${count.length} items were made by their sellers.`)
 }
