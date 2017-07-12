@@ -1,67 +1,71 @@
-// Since the `data.js` file is loaded in your `index.html` before this one,
-// you have access to the `data` variable that contains the Etsy Store data.
-// Open your `index.html` page in your browser and you can verify that the following
-// is properly working. The `data` variable is an array with 25 items in it
+fetch(`https://openapi.etsy.com/v2/listings/active?api_key=${API_KEY}`)
+  .then((res) => res.json())
+  .then((res) => {
+    const { results } = res;
 
-// 1: Show me how to calculate the average price of all items.
-
-question1 = () => {
-  const ans = data.reduce(function(result, elem) {
-    result += elem.price
-    return result;
-  }, 0)
-  console.log("The average price is " + (ans/data.length).toFixed(2));
-};
-
-// 2: Show me how to get an array of items that cost between $14.00 and $18.00 USD
-question2 = () => {
-  return data.filter((item) => {
-    if (item["price"] >= 14 && item["price"] <= 18) {
-      console.log(item.title)
+    // question 1
+    const question1 = () => {
+      const totalPrice = results.reduce((prices, item) => {
+        prices += +(item.price, 10);
+        return prices;
+      }, 0);
+      const avgPrice = (totalPrice/results.length).toFixed(2);
+      console.log(`The average price is ${avgPrice}`);
+    };
+    // question 2
+    const question2 = () => {
+      return results.forEach((element) => {
+        if (element.price >= 14 && element.price <= 18) {
+          console.log(element.title)
+        }
+      });
     }
-  });
-}
-
-// 3: Which item has a "GBP" currency code? Display its name and price.
-question3 = () => {
-  return data.find((item) => {
-    if (item.currency_code === "GBP") {
-      console.log(`${item.title} costs ${item.price} pounds.`)
-    }
-  })
-}
-
-// 4: Display a list of all items who are made of wood.
-question4 = () => {
-  return data.filter((item) => {
-    if (item.materials.indexOf('wood') > -1) {
-      console.log(`${item.title} is made of wood.`);
-    }
-  })
-}
-
-// 5: Which items are made of eight or more materials?
-//    Display the name, number of items and the items it is made of.
-
-question5 = () => {
-  return data.filter((item) => {
-    const { materials, title } = item;
-    if (materials.length >= 8) {
-      console.log(`${title} has ${materials.length} materials:`);
-      materials.map((material) => {
-        console.log(`-${material}`);
+    // question 3
+    const question3 = () => {
+      return results.forEach((item) => {
+        if (item.currency_code === "GBP") {
+          console.log(`${item.title} costs ${item.price} pounds.`)
+        }
       })
     }
-  })
-}
 
-// 6: How many items were made by their sellers?
-// Answer:
-question6 = () => {
-  const count = data.filter((item) => {
-    if (item.who_made === "i_did") {
-      return item;
+    // question 4
+    const question4 = () => {
+      return results.forEach((item) => {
+        if (item.materials.indexOf('wood') > -1) {
+          console.log(`${item.title} is made of wood.`);
+        }
+      })
     }
-  })
-  console.log(`${count.length} items were made by their sellers.`)
-}
+
+    // question 5
+    const question5 = () => {
+      return results.forEach((item) => {
+        const { materials, title } = item;
+        if (materials.length >= 8) {
+          console.log(`${title} has ${materials.length} materials:`);
+          materials.forEach((material) => {
+            console.log(`-${material}`);
+          })
+        }
+      })
+    }
+
+    // question 6
+    const question6 = () => {
+      let result = 0;
+      results.forEach((item) => {
+        if (item.who_made === "i_did") {
+          result++;
+        }
+      })
+      console.log(`${result} items were made by their sellers.`)
+    }
+
+    runAnswer(1, question1);
+    runAnswer(2, question2);
+    runAnswer(3, question3);
+    runAnswer(4, question4);
+    runAnswer(5, question5);
+    runAnswer(6, question6);
+  });
